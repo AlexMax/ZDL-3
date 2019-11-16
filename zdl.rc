@@ -14,13 +14,13 @@
 **********************************************************************/
 #include "zdl.h"
 
-ICO_ICON ICON DISCARDABLE "res\ico_icon.ico"
-ICO_SAVE ICON DISCARDABLE "res\ico_save.ico"
-ICO_WAD ICON DISCARDABLE "res\ico_wad.ico"
-ICO_PATCH ICON DISCARDABLE "res\ico_patch.ico"
-ICO_UP ICON DISCARDABLE "res\ico_up.ico"
-ICO_DOWN ICON DISCARDABLE "res\ico_down.ico"
-BMP_LOGO BITMAP DISCARDABLE "res\bmp_logo.bmp"
+ICO_ICON ICON DISCARDABLE "res/ico_icon.ico"
+ICO_SAVE ICON DISCARDABLE "res/ico_save.ico"
+ICO_WAD ICON DISCARDABLE "res/ico_wad.ico"
+ICO_PATCH ICON DISCARDABLE "res/ico_patch.ico"
+ICO_UP ICON DISCARDABLE "res/ico_up.ico"
+ICO_DOWN ICON DISCARDABLE "res/ico_down.ico"
+BMP_LOGO BITMAP DISCARDABLE "res/bmp_logo.bmp"
 
 DLG_MAIN DIALOG DISCARDABLE 0,0,180,172
 STYLE DS_CENTER|WS_MINIMIZEBOX|WS_POPUP|WS_CAPTION|WS_SYSMENU
