@@ -32,19 +32,19 @@ void Dlg_Launch(HWND dlg,char prompt){
 	_snprintf(cmd,q,"\"%s\" -iwad \"%s\"%s%s",portExe,iwad[Cfg_GetSel(SendMessage(GetDlgItem(dlg,LST_IWAD),LB_GETCURSEL,0,0),iwad)]->path,(strlen(cfg.always))?(" "):(""),cfg.always);
 	// Warp and Skill
 	SendMessage(GetDlgItem(dlg,LST_WARP),WM_GETTEXT,MAX_PATH,(LPARAM)tmp);
-	if(stricmp(tmp,"")){
+	if(_stricmp(tmp,"")){
 		strncat(cmd," +map ",q-strlen(cmd));
 		strncat(cmd,tmp,q-strlen(cmd));
 		_snprintf(&cmd[strlen(cmd)],q-strlen(cmd)," -skill %d",SendMessage(GetDlgItem(dlg,LST_SKILL),CB_GETCURSEL,0,0)+1);
 	}
 	// PWADs and DEHs
 	for(i=0;pwad[i]&&i<MAX_PWAD;i++){ // Count up each type of file
-		if(stricmp(strrchr(pwad[i],'.'),".deh")&&stricmp(strrchr(pwad[i],'.'),".bex")){pw++;}else{pt++;}
+		if(_stricmp(strrchr(pwad[i],'.'),".deh")&&_stricmp(strrchr(pwad[i],'.'),".bex")){pw++;}else{pt++;}
 	}
 	if(pw){ // Append PWADs
 		strncat(cmd," -file",q-strlen(cmd));
 		for(i=0;pwad[i]&&i<MAX_PWAD;i++){
-			if(stricmp(strrchr(pwad[i],'.'),".deh")&&stricmp(strrchr(pwad[i],'.'),".bex")){
+			if(_stricmp(strrchr(pwad[i],'.'),".deh")&&_stricmp(strrchr(pwad[i],'.'),".bex")){
 				_snprintf(&cmd[strlen(cmd)],q-strlen(cmd)," \"%s\"",pwad[i]);
 			}
 		}
@@ -52,7 +52,7 @@ void Dlg_Launch(HWND dlg,char prompt){
 	if(pt){ // Append DEHs
 		strncat(cmd," -deh",q-strlen(cmd));
 		for(i=0;pwad[i]&&i<MAX_PWAD;i++){
-			if(!stricmp(strrchr(pwad[i],'.'),".deh")||!stricmp(strrchr(pwad[i],'.'),".bex")){
+			if(!_stricmp(strrchr(pwad[i],'.'),".deh")||!_stricmp(strrchr(pwad[i],'.'),".bex")){
 				_snprintf(&cmd[strlen(cmd)],q-strlen(cmd)," \"%s\"",pwad[i]);
 			}
 		}
@@ -96,7 +96,7 @@ void Dlg_Launch(HWND dlg,char prompt){
 	if(strrchr(portExe,'\\')){
 		strncpy(tmp,portExe,MAX_PATH);
 		strrchr(tmp,'\\')[0]='\0';
-		chdir(tmp);
+		_chdir(tmp);
 	}
 	// GoooOOooooOOOOOoooOOO!
 	WinExec(cmd,SW_NORMAL);
@@ -112,7 +112,7 @@ exit:
 // Dlg_AddPWAD : Adds an item to the PWAD list
 int Dlg_AddPWAD(HWND dlg,char *file){
 	int i=SendMessage(GetDlgItem(dlg,LST_PWAD),LB_GETCOUNT,0,0);
-	if(i>=MAX_PWAD||!strrchr(file,'.')||!stricmp(strrchr(file,'.'),".zdl")||!stricmp(strrchr(file,'.'),".ini")){return 0;}
+	if(i>=MAX_PWAD||!strrchr(file,'.')||!_stricmp(strrchr(file,'.'),".zdl")||!_stricmp(strrchr(file,'.'),".ini")){return 0;}
 	memset((pwad[i]=malloc((MAX_PATH+1)*sizeof(char))),0,MAX_PATH*sizeof(char));
 	strncpy(pwad[i],file,MAX_PATH);
 	SendMessage(GetDlgItem(dlg,LST_PWAD),LB_ADDSTRING,0,(strrchr(file,'\\'))?((LPARAM)strrchr(file,'\\')+1):((LPARAM)file));
@@ -190,7 +190,7 @@ void Dlg_PopulateWarp(HWND dlg,char *file){
 		fseek(fptr,header.dir,SEEK_SET);
 		for(i=0;i<header.lumps;i++){
 			fread(&lump,2,sizeof(LUMPHEAD),fptr);
-			if(!stricmp(lump[1].name,"THINGS")){
+			if(!_stricmp(lump[1].name,"THINGS")){
 				strncpy(temp,lump[0].name,8);
 				SendMessage(GetDlgItem(dlg,LST_WARP),CB_ADDSTRING,0,(LPARAM)temp);
 			}else{fseek(fptr,sizeof(LUMPHEAD)-(sizeof(LUMPHEAD)*2),SEEK_CUR);}

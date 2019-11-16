@@ -151,7 +151,7 @@ int Cfg_GetSelStr(char *name,ITEM **item){
 	int i=0,q=0,r=0;
 	for(i=0;;i++){ // Get to the real index
 		if(!item[i]||i>=MAX_ITEM){return -2;}
-		if(!stricmp(name,item[i]->name)){break;}
+		if(!_stricmp(name,item[i]->name)){break;}
 	}
 	if(!item[i]->avail){return -1;} // Make sure the found entry is available
 	for(q=0;q<i;q++){if(item[q]->avail){r++;}} // Figure out what the list index is
@@ -203,7 +203,7 @@ int Cfg_ReadSave(HWND dlg,char *file){
 		SendMessage(GetDlgItem(dlg,boxid[1][i]),CB_SETCURSEL,(WPARAM)atoi(tmp),0);
 	}}
 	// Dialog Mode
-	if(ReadINI("zdl.save","dlgmode",tmp,MAX_PATH,file)>0&&!stricmp(tmp,"open")&&cfg.dlgmode){
+	if(ReadINI("zdl.save","dlgmode",tmp,MAX_PATH,file)>0&&!_stricmp(tmp,"open")&&cfg.dlgmode){
 		SendMessage(dlg,WM_COMMAND,MAKELONG(BTN_PANEL,BN_CLICKED),0);
 	}
 	// PWAD list
@@ -237,7 +237,7 @@ void Cfg_WriteSave(HWND dlg,FILE *fptr){
 	}
 	if(!cfg.dlgmode){fputs("dlgmode=open\n",fptr);}
 	SendMessage(GetDlgItem(dlg,LST_WARP),WM_GETTEXT,MAX_PATH,(LPARAM)tmp);
-	if(tmp[0]&&stricmp(tmp,"")){fprintf(fptr,"warp=%s\nskill=%d\n",tmp,SendMessage(GetDlgItem(dlg,LST_SKILL),CB_GETCURSEL,0,0));}
+	if(tmp[0]&&_stricmp(tmp,"")){fprintf(fptr,"warp=%s\nskill=%d\n",tmp,SendMessage(GetDlgItem(dlg,LST_SKILL),CB_GETCURSEL,0,0));}
 	if((i=SendMessage(GetDlgItem(dlg,LST_GAME),CB_GETCURSEL,0,0))){fprintf(fptr,"gametype=%d\n",i);}
 	if((i=SendMessage(GetDlgItem(dlg,LST_PLAYERS),CB_GETCURSEL,0,0))){fprintf(fptr,"players=%d\n",i);}
 	for(i=0;i<5;i++){ // Grab text from the boxes

@@ -1,3 +1,7 @@
 *.o
 *.obj
+*.res
 *.exe
+
+/.vscode
+/zig-cache

@@ -172,7 +172,7 @@ LRESULT CALLBACK MainProc(HWND dlg,UINT msg,WPARAM wp,LPARAM lp){
 				}tmp[(cmdline[q])?(r-1):(r)]='\0';r=0;
 				// Check to see if it's a save file and act accordingly.
 				if(!Dlg_AddPWAD(dlg,tmp)){ // Check if it's a save file and launch
-					if(i==0&&strchr(tmp,'.')&&(!stricmp(strchr(tmp,'.'),".zdl")||!stricmp(strchr(tmp,'.'),".ini"))){
+					if(i==0&&strchr(tmp,'.')&&(!_stricmp(strchr(tmp,'.'),".zdl")||!_stricmp(strchr(tmp,'.'),".ini"))){
 						if(Cfg_ReadSave(dlg,tmp)){
 							free(tmp);
 							if(cfg.launch){ // Launch if the option is set
